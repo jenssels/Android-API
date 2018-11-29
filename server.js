@@ -18,12 +18,15 @@ const allowCrossDomain = function(req, res, next) {
     }
 };
 
-const port = 8081;
+const port = 8080;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const connectToMongo = async() => {
-    let client = await MongoClient.connect(config.url,{ useNewUrlParser: true });
+    let client = await MongoClient.connect(config.url,{server: {
+        reconnectTries: Number.MAX_VALUE,
+        reconnectInterval: 1000
+    }, useNewUrlParser: true });
 
     let db = await client.db('android-api');
 
