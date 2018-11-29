@@ -23,10 +23,10 @@ const port = 8080;
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const connectToMongo = async() => {
-    let client = await MongoClient.connect(config.url,{server: {
+    let client = await MongoClient.connect(config.url,{
         reconnectTries: Number.MAX_VALUE,
-        reconnectInterval: 1000
-    }, useNewUrlParser: true });
+        reconnectInterval: 1000,
+		useNewUrlParser: true });
 
     let db = await client.db('android-api');
 
